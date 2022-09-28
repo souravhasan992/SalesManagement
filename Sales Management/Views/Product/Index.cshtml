@@ -1,0 +1,68 @@
+﻿@*@model IEnumerable<SalesProject.Models.ViewModels.VmProductCreate>*@
+@model ReflectionIT.Mvc.Paging.PagingList<Sales_Management.Data.Models.tblProduct>
+@using ReflectionIT.Mvc.Paging;
+@addTagHelper  *,ReflectionIT.Mvc.Paging
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form method="get" class="form-inline">
+    <input name="filter" class="form-control" placeholder="filter" value=@Model.RouteValue["Filter"] />
+    <button type="submit" class="bth btn-info">
+        <span class="glyphicon glyphicon-search" aria-hidden="t">
+
+        </span>
+        Search
+    </button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    <img src="~/images/@item.ImageName" asp-append-version="true" width="80" height="70" />
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav aria-label="Product navigation example">
+    <vc:pager paging-list="@Model" />
+</nav>

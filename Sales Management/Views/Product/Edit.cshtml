@@ -1,0 +1,79 @@
+﻿@model Sales_Management.Data.Models.ViewModels.VmProductCreate
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<link href="~/css/themes/base/jquery-ui.css" rel="stylesheet" />
+<h2>Edit Product</h2>
+@using (Html.BeginForm("AddOrEdit", "Product", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "SubmitForm" }))
+{
+    @Html.AntiForgeryToken();
+    @Html.HiddenFor(t => t.ProductId)
+    <div class="row">
+        <div class="input-field col s2">
+            @Html.LabelFor(t => t.ProductName)
+        </div>
+        <div class="input-field col s10">
+            @Html.EditorFor(t => t.ProductName)
+            @Html.ValidationMessageFor(p => p.ProductName, "")
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s2">
+            @Html.LabelFor(t => t.Price)
+        </div>
+        <div class="input-field col s10">
+            @Html.EditorFor(t => t.Price)
+            @Html.ValidationMessageFor(p => p.Price, "")
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s2">
+            @Html.LabelFor(t => t.OrderDate)
+        </div>
+        <div class="input-field col s10">
+            @Html.TextBoxFor(t => t.OrderDate, "{0:mm/dd/yyyy}")
+            @Html.ValidationMessageFor(p => p.OrderDate, "")
+        </div>
+    </div>
+    <div class="row">
+        <div class="input-field col s2">
+            @Html.LabelFor(model => model.ImageUrl)
+        </div>
+        <img src="~/images/@Model.ImageName" asp-append-version="true" width="80" height="70" />
+        <input type="file" name="ImageFile" class="changeImage" />
+        @Html.ValidationMessageFor(model => model.ImageUrl, "")
+
+    </div><br />
+    <div class="row">
+        <div class="input-field col s2">
+            <input type="submit" value="Create" class="btn btn-warning" />
+        </div>
+    </div>
+}
+<script src="~/js/jquery-1.12.1.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#OrderDate").datepicker({
+            changeMonth: true, changeYear: true,
+            yearRange: "-35:+1"
+        });
+    })
+    $(function () {
+        $('.changeImage').change(function () {
+            var input = this;
+            if (input.files) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.change_edit').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        })
+    })
+</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,50 @@
+﻿@model Sales_Management.Data.Models.UserLogin
+
+@{
+    ViewData["Title"] = "PermisionEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>PermisionEdit</h2>
+
+<h4>UserLogin</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PermisionEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserId" />
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserPass" class="control-label"></label>
+                <input asp-for="UserPass" class="form-control" />
+                <span asp-validation-for="UserPass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserType" class="control-label"></label>
+                <input asp-for="UserType" class="form-control" />
+                <span asp-validation-for="UserType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <strong>Product:</strong>
+                <input type="hidden" name="menuId" value="1" />
+                Read <input type="checkbox" onchange="changeCheckbox(this,'1_isRead');" name="isRead_ch" value="true" /><input id="1_isRead" name="isRead" type="hidden" value="false" />
+                Create <input type="checkbox" onchange="changeCheckbox(this,'1_isCreate');" name="isCreate_ch" value="true" /><input id="1_isCreate" name="isCreate" type="hidden" value="false" />
+                Update <input type="checkbox" onchange="changeCheckbox(this,'1_isUpdate');" name="isUpdate_ch" value="true" /><input id="1_isUpdate" name="isUpdate" type="hidden" value="false" />
+                Delete <input type="checkbox" onchange="changeCheckbox(this,'1_isDelete');" name="isDelete_ch" value="true" /><input id="1_isDelete" name="isDelete" type="hidden" value="false" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
